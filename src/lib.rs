@@ -47,7 +47,8 @@ cfg_if::cfg_if! {
     } else if #[cfg(windows)] {
         #[path = "windows.rs"]
         mod imp;
-    } else if #[cfg(all(target_family = "wasm", not(target_os = "emscripten")))] {
+    } else if #[cfg(all(target_family = "wasm", not(target_os = "emscripten"), not(target_vendor = "browseros")))] {
+        // wasm32-browseros-linux-musl is a Linux with musl: it takes the Unix implementation below
         #[path = "wasm.rs"]
         mod imp;
     } else {
